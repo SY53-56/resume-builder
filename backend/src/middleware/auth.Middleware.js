@@ -1,4 +1,6 @@
 const jwt = require("jsonwebtoken")
+const userModel = require("../models/user.model")
+const tokenBlackListToken = require("../models/blacklist.model")
 
 
 
@@ -7,8 +9,11 @@ const jwt = require("jsonwebtoken")
 const authMiddleware = async(req,res,next)=>{
     const token= req.cookies.token
     if(!token)return res.status(401).json({message:"token not provided"})
-console.log("toekn",token)
-     console.log("decpde", process.env.JWT_SECRET)
+      
+      const isTokenBlackListed = await tokenBlackListToken.findOne({token})
+      if(isTokenBlackListed){
+        return res.status(401).json({message:"token is blacklisted. please login again"})
+      }
    try{
      const decode=  jwt.verify(token , process.env.JWT_SECRET)
      console.log("decpde", process.env.JWT_SECRET)

@@ -64,8 +64,19 @@ const logoutController =async(req,res)=>{
    res.status(200).json({message:"User logged ourt successfully"})
 }
 
+
+const getMeController= async(req,res)=>{
+   const user = await userModel.findById(req.user.id)
+   if(!user) return
+   res.status(200).json({ message: "User fetched successfully", user:{
+    id:user._id,
+    username:user.username,
+    email:user.email
+   }})
+}
 module.exports={
     loginController,
     registerController,
-    logoutController
+    logoutController,
+    getMeController
 }

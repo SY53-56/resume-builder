@@ -29,7 +29,7 @@ export async function login({username, email}) {
     }
 }
 
-export async function logut() {
+export async function logout() {
     try{
        const response = await  api.get("/api/auth/logout", {
         

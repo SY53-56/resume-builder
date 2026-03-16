@@ -1,29 +1,45 @@
 import { useContext } from "react"
 import { AuthContext } from "../auth.context"
-import { login, logut, register } from "../services/auth.api"
+import { login, logout, register } from "../services/auth.api"
 
 
 
-export const useAUth = ()=>{
+export const useAuth = ()=>{
 const context  =useContext(AuthContext)
-const {user ,setUSer , loading , setLoading} = context
+const {user ,setUser , loading , setLoading} = context
 const handleLogin = async(email ,password)=>{
 setLoading(true)
+try{
 const data = await login({email ,password})
- setUSer(data.user)
+ setUser(data.user)
+}catch(e){
+console.log(e)
+}finally{
  setLoading(false)
 }
+
+}
 const handleRegister = async({username, email, password})=>{
-    setLoading(true)
-    const data = await register({username,email,password})
-    setUSer(data.user)
-    setLoading(false)
+   setLoading(true)
+try{
+const data = await register({ username,email ,password})
+ setUser(data.user)
+}catch(e){
+console.log(e)
+}finally{
+ setLoading(false)
+}
 }
 const handleLogut = async()=>{
-  setLoading(true)
-await logut()
-  setUSer(null)
-   setLoading(false)
+setLoading(true)
+try{
+ await logout
+ setUser(null)
+}catch(e){
+console.log(e)
+}finally{
+ setLoading(false)
+}
 }
  return (user, loading,handleLogin,handleRegister,handleLogut)
 

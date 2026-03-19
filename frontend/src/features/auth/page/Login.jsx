@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
 import "../auth.form.scss";
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { useAuth } from '../hooks/useAuth';
 export default function Login() {
     const {handleLogin , loading}= useAuth()
+    const navigate= useNavigate()
      const [form , setForm] = useState({
             username:"",
         email:"",
@@ -14,9 +15,11 @@ export default function Login() {
              const {value ,name} =e.target
              setForm(prev => ({...prev, [name]:value}))
         }
-    const handleSubmit = (e)=>{
+    const handleSubmit = async(e)=>{
 e.preventDefault()
- handleLogin(form)
+ await handleLogin(form)
+ navigate("/")
+ setForm(" ")
     }
     if(loading){
         return ( <main>

@@ -16,9 +16,11 @@ export default function Register() {
          setForm(prev => ({...prev, [name]:value}))
     }
 
-     const handleSubmit = (e)=>{
+     const handleSubmit = async(e)=>{
 e.preventDefault()
- handleRegister(form)
+ await handleRegister(form)
+ navigate("/")
+ setForm(" ")
     }
 
     if(loading){
@@ -37,7 +39,7 @@ e.preventDefault()
     </div>
     <div className="input-group">
         <label htmlFor='email'>Email</label>
-        <input type="email" value={form.username}  onChange={handleForm}  name="email" placeholder='Enter your email' id="email"/>
+        <input type="email" value={form.email}  onChange={handleForm}  name="email" placeholder='Enter your email' id="email"/>
     </div>
       <div className="input-group">
         <label htmlFor='password'>password</label>

@@ -30,10 +30,10 @@ console.log(e)
  setLoading(false)
 }
 }
-const handleLogut = async()=>{
+const handleLogout = async()=>{
 setLoading(true)
 try{
- await logout
+ await logout ()
  setUser(null)
 }catch(e){
 console.log(e)
@@ -41,6 +41,12 @@ console.log(e)
  setLoading(false)
 }
 }
- return (user, loading,handleLogin,handleRegister,handleLogut)
+ return {
+  user,
+  loading,
+  handleLogin,
+  handleRegister,
+  handleLogout
+}
 
 }

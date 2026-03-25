@@ -7,7 +7,7 @@ app.use(express.json())
 const authRoutes = require("./routes/auth.routes")
 const interviewRoutes = require("./routes/interview.routes")
 app.use(cors({
-    origin:"http://localhost:5174",
+    origin:"http://localhost:5173",
     credentials:true
 }))
 

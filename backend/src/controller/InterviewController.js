@@ -19,7 +19,6 @@ const generateInterViewReportController = async (req, res) => {
       jobDescription,
     });
 
-    console.log("✅ AI RESPONSE:", interviewReportByAi);
 
     const interviewReport = await interviewReportModel.create({
       user: req.user.id,
@@ -33,7 +32,7 @@ const generateInterViewReportController = async (req, res) => {
       skillGap: interviewReportByAi.skillGap,
       preparationPlan: interviewReportByAi.preparationPlan,
     });
-console.log("sahulyadav", interviewReport)
+
     res.status(201).json({
       message: "Interview report successfully",
       interviewReport,

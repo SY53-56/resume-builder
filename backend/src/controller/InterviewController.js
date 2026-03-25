@@ -45,7 +45,31 @@ const generateInterViewReportController = async (req, res) => {
     });
   }
 };
+const getInterviewReportByIdController = async(req,res)=>{
+   const {interivewId} = req.params
+   try{
+   
+      const interviewReport = await interviewReportModel.findOne({_id:interivewId, user:res.user.id})
+     return res.status(200).json({
+         message:"interview report fetched successfully",
+         interviewReport
+      })
+   }catch(e){
+res.status(400).json({message:`error ${e}`})
+   }
+}
 
+const getInterviewReportByUserId = async(req,res)=>{
+   
+
+   const interviewReport = await interviewReportModel.findById({user:req.user.id}).sort({createdId:-1}).select("-resume -selfDescription -jobDescription -__v -technicalQuestion -behavioralQuestion -skilllGap -preparationPlan")
+   return res.status(200).json({
+      message:"user interview detaisl",
+      interviewReport
+   })
+}
 module.exports = {
   generateInterViewReportController,
+  getInterviewReportByIdController,
+  getInterviewReportByUserId
 };

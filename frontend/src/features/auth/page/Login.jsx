@@ -13,6 +13,7 @@ export default function Login() {
     
         function handleForm(e){
              const {value ,name} =e.target
+             console.log(value ,name)
              setForm(prev => ({...prev, [name]:value}))
         }
     const handleSubmit = async(e)=>{
@@ -33,11 +34,11 @@ e.preventDefault()
 <form onSubmit={handleSubmit}>
     <div className="input-group">
         <label htmlFor='email'>Email</label>
-        <input type="email" value={form.email} onClick={handleForm} name="email" placeholder='Enter your email' id="email"/>
+        <input type="email" value={form.email} onChange={handleForm} required name="email" placeholder='Enter your email' id="email"/>
     </div>
       <div className="input-group">
         <label htmlFor='password'>password</label>
-        <input type="password" value={form.password} onClick={handleForm}  name="password" placeholder='Enter your password' id="password"/>
+        <input type="password" value={form.password}  onChange={handleForm} required  name="password" placeholder='Enter your password' id="password"/>
     </div>
     <button type='submit' className='button primary-button'>Login</button>
 </form>

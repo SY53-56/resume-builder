@@ -16,7 +16,8 @@ export default function Login() {
              console.log(value ,name)
              setForm(prev => ({...prev, [name]:value}))
         }
-    const handleSubmit = async(e)=>{
+
+const handleSubmit = async(e)=>{
 e.preventDefault()
  await handleLogin(form)
  navigate("/")

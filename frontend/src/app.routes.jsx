@@ -1,4 +1,4 @@
- import {createBrowserRouter} from "react-router"
+ import {createBrowserRouter} from "react-router-dom"
 
 import Login from "./features/auth/page/Login"
 import Register from "./features/auth/page/Register"
@@ -17,7 +17,7 @@ import Interview from "./features/interview/pages/Interview"
         element:<Protected><Home/></Protected>
     },
     {
-        path:"/interview",
+        path:"/interview/:interviewId",
         element:<Protected><Interview/></Protected>
     }
   ])

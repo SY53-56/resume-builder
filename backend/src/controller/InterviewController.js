@@ -25,7 +25,7 @@ const generateInterViewReportController = async (req, res) => {
       resume: resumeText,
       selfDescription,
       jobDescription,
-
+      title:interviewReportByAi.title||"interview",
       matchScore: interviewReportByAi.matchScore,
       technicalQuestion: interviewReportByAi.technicalQuestion,
       behavioralQuestion: interviewReportByAi.behavioralQuestion,
@@ -50,6 +50,9 @@ const getInterviewReportByIdController = async(req,res)=>{
    try{
    
       const interviewReport = await interviewReportModel.findOne({_id:interivewId, user:res.user.id})
+      if(!interviewReport){
+        return res.status(400).json({message:"something wrong"})
+      }
      return res.status(200).json({
          message:"interview report fetched successfully",
          interviewReport
@@ -63,6 +66,9 @@ const getInterviewReportByUserId = async(req,res)=>{
    
 
    const interviewReport = await interviewReportModel.findById({user:req.user.id}).sort({createdId:-1}).select("-resume -selfDescription -jobDescription -__v -technicalQuestion -behavioralQuestion -skilllGap -preparationPlan")
+   if(!interviewReport){
+    return res.status(400).json({message:"something wrong"})
+   }
    return res.status(200).json({
       message:"user interview detaisl",
       interviewReport

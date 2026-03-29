@@ -33,7 +33,7 @@ export async function logout() {
     try{
        const response = await  api.get("/api/auth/logout", {
         
-     } ,{withCredentials:true})
+     } )
      return response.data
     }catch(e){
         console.log(e)
@@ -42,7 +42,7 @@ export async function logout() {
 
 export async function getMe() {
     try{
-       const response = await  api.get("/api/auth/get-me",{withCredentials:true})
+       const response = await  api.get("/api/auth/get-me",)
      return response.data
     }catch(e){
         console.log(e)

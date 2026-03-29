@@ -13,6 +13,7 @@ export default function Register() {
 
     function handleForm(e){
          const {value ,name} =e.target
+         console.log(value)
          setForm(prev => ({...prev, [name]:value}))
     }
 

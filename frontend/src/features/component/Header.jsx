@@ -21,7 +21,7 @@ console.log( "sahul",user)
       </div>
 
       <div className="header-right">
-        <button onClick={() => navigate("/")}>Home</button>
+    
         <button onClick={() => navigate("/dashboard")}>Dashboard</button>
          {user ?  <button onClick={handleLogoutD} className="logout-btn">
           Logout

@@ -477,3 +477,147 @@ $severity-low: #3fb950;
         border-color: rgba($severity-low, 0.25);
     }
 }
+
+// ─────────────────────────────────────────
+// 📱 MOBILE (<= 768px)
+// ─────────────────────────────────────────
+@media (max-width: 768px) {
+
+  .interview-page {
+    padding: 0.75rem;
+  }
+
+  .interview-layout {
+    flex-direction: column; // 🔥 stack everything
+    border-radius: 0.75rem;
+  }
+
+  .interview-divider {
+    display: none; // ❌ remove vertical lines
+  }
+
+  // ── NAV becomes horizontal top bar ──
+  .interview-nav {
+    width: 100%;
+    flex-direction: column;
+    padding: 1rem 0.75rem;
+
+    .nav-content {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+    }
+
+    &__item {
+      flex: 1;
+      justify-content: center;
+      font-size: 0.75rem;
+      padding: 0.5rem;
+      white-space: nowrap;
+    }
+
+    button.primary-button {
+      margin-top: 0.75rem;
+      width: 100%; // 🔥 full width button
+    }
+  }
+
+  // ── CONTENT ──
+  .interview-content {
+    padding: 1rem;
+    max-height: none;
+  }
+
+  .content-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+
+    h2 {
+      font-size: 1rem;
+    }
+  }
+
+  // ── SIDEBAR becomes bottom section ──
+  .interview-sidebar {
+    width: 100%;
+    padding: 1rem;
+    border-top: 1px solid $border-color;
+  }
+
+  // ── Question card tweaks ──
+  .q-card {
+    &__header {
+      padding: 0.75rem;
+    }
+
+    &__question {
+      font-size: 0.85rem;
+    }
+
+    &__body {
+      padding: 0.75rem;
+    }
+  }
+
+  // ── Roadmap fixes ──
+  .roadmap-list::before {
+    left: 14px; // shift line
+  }
+
+  .roadmap-day {
+    padding-left: 2.2rem;
+
+    &::before {
+      left: 7px;
+    }
+  }
+
+  // ── Match score resize ──
+  .match-score__ring {
+    width: 70px;
+    height: 70px;
+  }
+
+  .match-score__value {
+    font-size: 1.2rem;
+  }
+}
+
+// ─────────────────────────────────────────
+// 📲 TABLET (<= 1024px)
+// ─────────────────────────────────────────
+@media (max-width: 1024px) {
+
+  .interview-layout {
+    flex-direction: column;
+  }
+
+  .interview-nav {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    .nav-content {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    &__item {
+      font-size: 0.8rem;
+    }
+  }
+
+  .interview-sidebar {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .match-score,
+  .skill-gaps {
+    flex: 1;
+  }
+}

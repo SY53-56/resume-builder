@@ -18,11 +18,12 @@ export async function register({username, email,password}) {
     }
 }
 
-export async function login({username, email}) {
+export async function login({password, email}) {
     try{
        const response = await  api.post("/api/auth/login", {
-        username, email 
+     password, email 
      } )
+     console.log("response,", response)
      return response.data
     }catch(e){
         console.log(e)
@@ -39,7 +40,7 @@ export async function logout() {
         console.log(e)
     }
 }
-
+/*
 export async function getMe() {
     try{
        const response = await  api.get("/api/auth/get-me",)
@@ -47,4 +48,4 @@ export async function getMe() {
     }catch(e){
         console.log(e)
     }
-}
+}*/

@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { AuthContext } from "../auth.context"
-import { getMe, login, logout, register } from "../services/auth.api"
+import { login, logout, register } from "../services/auth.api"
 import { useEffect } from "react"
 
 
@@ -8,23 +8,23 @@ import { useEffect } from "react"
 export const useAuth = ()=>{
 
 const {user ,setUser , loading , setLoading} =useContext(AuthContext)
-const handleLogin = async(email ,password)=>{
-setLoading(true)
-try{
-const data = await login({email ,password})
- setUser(data.user)
-}catch(e){
-console.log(e)
-}finally{
- setLoading(false)
-}
-
+const handleLogin = async ({ email, password }) => {
+  setLoading(true)
+  try {
+    const data = await login({ email, password })
+    setUser(data.user)
+  } catch (e) {
+    console.log(e)
+  } finally {
+    setLoading(false)
+  }
 }
 const handleRegister = async({username, email, password})=>{
    setLoading(true)
 try{
 const data = await register({ username,email ,password})
  setUser(data.user)
+ return data.user
 }catch(e){
 console.log(e)
 }finally{
@@ -42,20 +42,24 @@ console.log(e)
  setLoading(false)
 }
 }
+/*
 useEffect(()=>{
    const getUser = async()=>{
       try{
           const data = await getMe()
+          console.log("data",data)
           setUser(data.user)
+          return data.user
       }catch(e){
          
          console.log(e)
+          setUser(null);
       }finally{
       setLoading(false)
    }
    }
    getUser()
-},[])
+},[])*/
  return {
   user,
   loading,

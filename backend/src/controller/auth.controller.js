@@ -20,7 +20,11 @@ try{
     })
 
     const token = jwt.sign({id:user._id, username:user.username} , process.env.JWT_SECRET)
-     res.cookie("token", token)
+  res.cookie("token", token, {
+  httpOnly: true,
+  secure: false,        // true only in HTTPS (production)
+  sameSite: "lax",      // or "none" if needed
+});
    res.status(201).json({message:"user registered successful" , user:{
     id:user._id,
     username:user.username,
@@ -34,7 +38,7 @@ res.status(400).json({message:`${e} error`})
 const loginController = async(req,res)=>{
 try{
     const {email, password} = req.body
-
+console.log("sahgykghghkjhjk", req.body)
     const user = await userModel.findOne({email})
     if(!user){
         return res.status(400).json({mesaage:"email is not register "})
@@ -44,7 +48,11 @@ try{
     if(!isMathcPassword) return res.status(401).json({message:"password is not match"})
  
           const token = jwt.sign({id:user._id, username:user.username} , process.env.JWT_SECRET)
-    res.cookie("token", token)
+  res.cookie("token", token, {
+  httpOnly: true,
+  secure: false,        // true only in HTTPS (production)
+  sameSite: "lax",      // or "none" if needed
+});
   res.status(200).json({message:"user login successfully",user:{
     id:user._id,
     username:user.username,

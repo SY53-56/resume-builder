@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react'
 import "../style/home.scss"
 import { useInterview } from '../hooks/useInterview.js'
 import { useNavigate } from 'react-router'
+import Header from '../../component/Header.jsx'
 
 const Home = () => {
 
@@ -30,7 +31,7 @@ const Home = () => {
 
     return (
         <div className='home-page'>
-
+  <Header/>
             {/* Page Header */}
             <header className='page-header'>
                 <h1>Create Your Custom <span className='highlight'>Interview Plan</span></h1>

@@ -6,7 +6,6 @@ export default function Login() {
     const {handleLogin , loading}= useAuth()
     const navigate= useNavigate()
      const [form , setForm] = useState({
-            username:"",
         email:"",
         password:""
         })
@@ -21,7 +20,10 @@ const handleSubmit = async(e)=>{
 e.preventDefault()
  await handleLogin(form)
  navigate("/")
- setForm(" ")
+setForm({
+  email: "",
+  password: ""
+})
     }
     if(loading){
         return ( <main>

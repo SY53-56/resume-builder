@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import '../style/interview.scss'
 import { useInterview } from '../hooks/useInterview.js'
 import { useParams } from 'react-router'
+import Header from '../../component/Header.jsx'
 
 
 
@@ -84,8 +85,11 @@ const Interview = () => {
             report.matchScore >= 60 ? 'score--mid' : 'score--low'
 
 
-    return (
-        <div className='interview-page'>
+    return (<>
+
+      
+       <div className='interview-page'>
+            
             <div className='interview-layout'>
 
                 {/* ── Left Nav ── */}
@@ -190,6 +194,8 @@ const Interview = () => {
                 </aside>
             </div>
         </div>
+    </>
+       
     )
 }
 

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import "./style.scss"
 import { AuthContext } from "../auth/auth.context";
 import { useAuth } from "../auth/hooks/useAuth";
@@ -22,11 +22,14 @@ console.log( "sahul",user)
 
       <div className="header-right">
     
-        <button onClick={() => navigate("/dashboard")}>Dashboard</button>
-         {user ?  <button onClick={handleLogoutD} className="logout-btn">
+        <Link to={`/dashboard/${user.id}`}><button className="logout-btn">Dashboard</button></Link>
+         {user ? <div className="btn-box">
+          <h1>{user.username}</h1>
+          <button onClick={handleLogoutD} className="logout-btn">
           Logout
-        </button>:<div>
-
+        </button>
+         </div>:<div>
+   
           <button className="logout-btn">login </button>
             <button  className="logout-btn">signup </button>
           </div>}

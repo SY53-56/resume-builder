@@ -40,7 +40,7 @@ export async function logout() {
         console.log(e)
     }
 }
-/*
+
 export async function getMe() {
     try{
        const response = await  api.get("/api/auth/get-me",)
@@ -48,4 +48,4 @@ export async function getMe() {
     }catch(e){
         console.log(e)
     }
-}*/
+}

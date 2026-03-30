@@ -5,6 +5,7 @@ import Register from "./features/auth/page/Register"
 import Protected from "./features/auth/component/Protected"
 import Home from "./features/interview/pages/Home"
 import Interview from "./features/interview/pages/Interview"
+import Dashboard from "./features/interview/pages/Dashboard"
  export const router= createBrowserRouter([
     {path:"/login" , 
         element:<Login/>
@@ -19,5 +20,9 @@ import Interview from "./features/interview/pages/Interview"
     {
         path:"/interview/:interviewId",
         element:<Protected><Interview/></Protected>
+    },
+    {
+        path:"/dashboard/:id",
+        element:<Protected><Dashboard/></Protected>
     }
   ])

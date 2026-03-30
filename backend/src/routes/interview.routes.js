@@ -6,5 +6,5 @@ const uploads = require("../middleware/file.middleware")
 
 routes.post("/", authMiddleware, uploads.single("resume"),generateInterViewReportController )
 routes.get("/:interviewId" , authMiddleware , getInterviewReportByIdController)
-routes.get("/interview/:id", authMiddleware , getInterviewReportByUserId)
+routes.get("/user/:id", authMiddleware , getInterviewReportByUserId)
 module.exports = routes

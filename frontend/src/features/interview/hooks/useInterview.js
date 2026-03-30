@@ -2,13 +2,14 @@ import { getAllInterviewReports, generateInterviewReport, getInterviewReportById
 import { useContext, useEffect } from "react"
 import { InterviewContext } from "../interview.context"
 import { useParams } from "react-router"
+import { useAuth } from "../../auth/hooks/useAuth"
 
 
 export const useInterview = () => {
 
    
     const { interviewId } = useParams()
-
+   const {user}= useAuth()
 
     const { loading, setLoading, report, setReport, reports, setReports } = useContext(InterviewContext)
 
@@ -34,7 +35,7 @@ export const useInterview = () => {
         try {
           const  response = await getInterviewReportById(interviewId)
             setReport(response.interviewReport)
-               return response.interviewReports
+               return response.interviewReport
         } catch (error) {
             console.log(error)
         } finally {
@@ -43,13 +44,13 @@ export const useInterview = () => {
         
     }
 
-    const getReports = async () => {
+    const  getReportsbyUserId = async (userId) => {
         setLoading(true)
        
         try {
-          const  response = await getAllInterviewReports()
-            setReports(response.interviewReports)
-            return response.interviewReports
+          const  response = await getAllInterviewReports(userId)
+            setReports(response.interviewReport)
+            return response.interviewReport
         } catch (error) {
             console.log(error)
         } finally {
@@ -82,10 +83,10 @@ export const useInterview = () => {
         if (interviewId) {
             getReportById(interviewId)
         } else {
-            getReports()
+            getReportsbyUserId(user?.id)
         }
     }, [ interviewId ])
 
-    return { loading, report, reports, generateReport, getReportById, getReports, getResumePdf }
+    return { loading, report, reports, generateReport, getReportById, getReportsbyUserId, getResumePdf }
 
 }

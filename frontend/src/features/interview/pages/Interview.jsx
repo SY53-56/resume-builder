@@ -190,7 +190,7 @@ const Interview = () => {
                             ))}
                         </div>
                     </div>
-
+                     <button className='save-btn'>save</button>
                 </aside>
             </div>
         </div>

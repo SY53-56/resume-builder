@@ -1,38 +1,48 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router";
-import "./style.scss"
-import { AuthContext } from "../auth/auth.context";
+import "./style.scss";
 import { useAuth } from "../auth/hooks/useAuth";
+
 const Header = () => {
   const navigate = useNavigate();
-const {handleLogout, user}= useAuth()
-console.log( "sahul",user)
-  const handleLogoutD = async() => {
-   await  handleLogout()
+  const { handleLogout, user } = useAuth();
+
+  const handleLogoutD = async () => {
+    await handleLogout();
     navigate("/");
   };
 
   return (
     <header className="app-header">
-      <div className="header-left">
-        <h2 onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
-          🚀 AI Interview
-        </h2>
+      {/* Left */}
+      <div className="header-left" onClick={() => navigate("/")}>
+        <h2>🚀 AI Interview</h2>
       </div>
 
+      {/* Right */}
       <div className="header-right">
-    
-        <Link to={`/dashboard/${user.id}`}><button className="logout-btn">Dashboard</button></Link>
-         {user ? <div className="btn-box">
-          <h1>{user.username}</h1>
-          <button onClick={handleLogoutD} className="logout-btn">
-          Logout
-        </button>
-         </div>:<div>
-   
-          <button className="logout-btn">login </button>
-            <button  className="logout-btn">signup </button>
-          </div>}
+
+        {/* Show only if user exists */}
+        {user ? (
+          <>
+            <Link to={`/dashboard/${user.id}`}>
+              <button className="btn btn-secondary">Dashboard</button>
+            </Link>
+
+            <div className="user-box">
+              <span className="username">{user.username}</span>
+
+              <button onClick={handleLogoutD} className="btn btn-primary">
+                Logout
+              </button>
+            </div>
+          </>
+        ) : (
+          <div className="auth-buttons">
+            <button className="btn btn-secondary">Login</button>
+            <button className="btn btn-primary">Signup</button>
+          </div>
+        )}
       </div>
     </header>
   );

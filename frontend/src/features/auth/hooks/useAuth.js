@@ -43,23 +43,7 @@ console.log(e)
 }
 }
 
-useEffect(()=>{
-   const getUser = async()=>{
-      try{
-          const data = await getMe()
-          console.log("data",data)
-          setUser(data.user)
-          return data.user
-      }catch(e){
-         
-         console.log(e)
-          setUser(null);
-      }finally{
-      setLoading(false)
-   }
-   }
-   getUser()
-},[])
+
  return {
   user,
   loading,

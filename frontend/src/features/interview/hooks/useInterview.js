@@ -49,6 +49,7 @@ export const useInterview = () => {
        
         try {
           const  response = await getAllInterviewReports(userId)
+          console.log("responsedata",response)
             setReports(response.interviewReport)
             return response.interviewReport
         } catch (error) {
@@ -79,14 +80,7 @@ export const useInterview = () => {
         }
     }
 
-    useEffect(() => {
-        if (interviewId) {
-            getReportById(interviewId)
-        } else {
-            getReportsbyUserId(user?.id)
-        }
-    }, [ interviewId ])
-
+ 
     return { loading, report, reports, generateReport, getReportById, getReportsbyUserId, getResumePdf }
 
 }

@@ -1,0 +1,123 @@
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    background: #0f172a;
+    color: #fff;
+    border-bottom: 1px solid #1e293b;
+}
+
+.header-left h2 {
+    font-size: 25px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.user-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.username {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* Buttons */
+.btn {
+    padding: 8px 14px;
+    border-radius: 9px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+.btn-primary {
+    background: #6366f1;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #4f46e5;
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid #334155;
+    color: #e2e8f0;
+}
+
+.btn-secondary:hover {
+    background: #1e293b;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+/* ── Responsive Design ──────────────────────────────────────────────────────── */
+
+/* 📱 Mobile (<= 768px) */
+@media (max-width: 768px) {
+    .app-header {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .header-left h2 {
+        font-size: 20px;
+    }
+
+    .header-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .user-box {
+        gap: 8px;
+    }
+
+    .username {
+        font-size: 12px;
+    }
+
+    .btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .auth-buttons {
+        gap: 8px;
+    }
+}
+
+/* 📲 Tablet (769px - 1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .app-header {
+        padding: 18px 40px;
+    }
+
+    .header-left h2 {
+        font-size: 22px;
+    }
+
+    .header-right {
+        gap: 12px;
+    }
+
+    .btn {
+        padding: 7px 13px;
+        font-size: 13px;
+    }
+}

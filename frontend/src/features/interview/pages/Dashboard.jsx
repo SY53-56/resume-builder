@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import "../style/dashboard.scss";
+import "../style/dashboard.css";
 import { useInterview } from "../hooks/useInterview";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../../auth/auth.context";

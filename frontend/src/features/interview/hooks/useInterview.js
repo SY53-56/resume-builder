@@ -18,68 +18,64 @@ export const useInterview = () => {
     setReports,
   } = useContext(InterviewContext);
 
-  // 🔥 Generate Report
+  // ✅ Generate
   const generateReport = useCallback(async (data) => {
     setLoading(true);
     try {
-      const response = await generateInterviewReport(data);
-      setReport(response.interviewReport);
-      return response.interviewReport;
+      const res = await generateInterviewReport(data);
+      setReport(res.interviewReport);
+      return res.interviewReport;
     } catch (error) {
-      console.error("Generate Report Error:", error.message);
-      throw error;
+      console.error("Generate Error:", error.response?.data || error.message);
     } finally {
       setLoading(false);
     }
   }, [setLoading, setReport]);
 
-  // 🔥 Get Single Report
+  // ✅ Get Single (with section support)
   const getReportById = useCallback(async (id) => {
+    if (!id) return;
+
     setLoading(true);
     try {
-      const response = await getInterviewReportById(id);
-      setReport(response.interviewReport);
-      return response.interviewReport;
+      const res = await getInterviewReportById(id);
+      setReport(res.interviewReport);
     } catch (error) {
-      console.error("Get Report Error:", error.message);
-      throw error;
+      console.error("Fetch Error:", error.response?.data || error.message);
     } finally {
       setLoading(false);
     }
   }, [setLoading, setReport]);
 
-  // 🔥 Get All Reports
-  const getReportsbyUserId = useCallback(async (userId) => {
+  // ✅ Get All
+  const getReportsbyUserId = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await getAllInterviewReports(userId);
-      setReports(response.interviewReport || []);
-      return response.interviewReport;
+      const res = await getAllInterviewReports();
+      setReports(res.interviewReport || []);
     } catch (error) {
-      console.error("Get Reports Error:", error.message);
-      throw error;
+      console.error("Fetch All Error:", error.response?.data || error.message);
     } finally {
       setLoading(false);
     }
   }, [setLoading, setReports]);
 
-  // 🔥 Download PDF
+  // ✅ Download PDF
   const getResumePdf = useCallback(async (id) => {
     setLoading(true);
     try {
-      const response = await generateResumePdf({ interviewReportId: id });
+      const res = await generateResumePdf({ interviewReportId: id });
 
       const url = window.URL.createObjectURL(
-        new Blob([response], { type: "application/pdf" })
+        new Blob([res], { type: "application/pdf" })
       );
 
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", `resume_${id}.pdf`);
-      document.body.appendChild(link);
+      link.download = `resume_${id}.pdf`;
       link.click();
     } catch (error) {
-      console.error("PDF Download Error:", error.message);
+      console.error("PDF Error:", error.response?.data || error.message);
     } finally {
       setLoading(false);
     }

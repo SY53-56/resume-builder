@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import "../auth.form.scss";
+import "../auth.form.css";
 import { Link, useNavigate } from 'react-router';
 import { useAuth } from '../hooks/useAuth';
 export default function Login() {

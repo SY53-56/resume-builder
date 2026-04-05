@@ -1,31 +1,41 @@
 import { createBrowserRouter } from "react-router-dom";
+import { lazy, Suspense } from "react";
 
-import Login from "./features/auth/page/Login";
-import Register from "./features/auth/page/Register";
-import Protected from "./features/auth/component/Protected";
-import Home from "./features/interview/pages/Home";
-import Interview from "./features/interview/pages/Interview";
-import Dashboard from "./features/interview/pages/Dashboard";
 import Layout from "./layout";
+import Protected from "./features/auth/component/Protected";
+
+// 🔥 Lazy imports
+const Login = lazy(() => import("./features/auth/page/Login"));
+const Register = lazy(() => import("./features/auth/page/Register"));
+const Home = lazy(() => import("./features/interview/pages/Home"));
+const Interview = lazy(() => import("./features/interview/pages/Interview"));
+const Dashboard = lazy(() => import("./features/interview/pages/Dashboard"));
+
+// 🔥 Wrapper for suspense
+const withSuspense = (Component) => (
+  <Suspense fallback={<h2>Loading...</h2>}>
+    <Component />
+  </Suspense>
+);
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />, // ✅ layout wrapper
+    element: <Layout />,
     children: [
       {
         path: "/login",
-        element: <Login />,
+        element: withSuspense(Login),
       },
       {
         path: "/register",
-        element: <Register />,
+        element: withSuspense(Register),
       },
       {
-        index: true, // default "/"
+        index: true,
         element: (
           <Protected>
-            <Home />
+            {withSuspense(Home)}
           </Protected>
         ),
       },
@@ -33,7 +43,7 @@ export const router = createBrowserRouter([
         path: "/interview/:interviewId",
         element: (
           <Protected>
-            <Interview />
+            {withSuspense(Interview)}
           </Protected>
         ),
       },
@@ -41,7 +51,7 @@ export const router = createBrowserRouter([
         path: "/dashboard/:id",
         element: (
           <Protected>
-            <Dashboard />
+            {withSuspense(Dashboard)}
           </Protected>
         ),
       },

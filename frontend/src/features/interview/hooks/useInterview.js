@@ -64,6 +64,7 @@ export const useInterview = () => {
   const getResumePdf = useCallback(async (id) => {
     setLoading(true);
     try {
+      
       const res = await generateResumePdf({ interviewReportId: id });
 
       const url = window.URL.createObjectURL(

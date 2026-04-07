@@ -102,7 +102,7 @@ ${jobDescription}
   });
 
   let text = response.text;
-console.log("responseText", text)
+
   // ✅ CLEAN RESPONSE
   text = text.replace(/```json|```/g, "").trim();
 

@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react'
 import "../style/home.css"
 import { useInterview } from '../hooks/useInterview.js'
 import { useNavigate } from 'react-router'
-import Header from '../../component/Header.jsx'
+
 
 const Home = () => {
 

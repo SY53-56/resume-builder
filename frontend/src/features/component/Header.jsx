@@ -39,8 +39,7 @@ const Header = () => {
           </>
         ) : (
           <div className="auth-buttons">
-            <button className="btn btn-secondary">Login</button>
-            <button className="btn btn-primary">Signup</button>
+       
           </div>
         )}
       </div>

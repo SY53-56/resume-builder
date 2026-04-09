@@ -1,93 +1,99 @@
 const userModel = require("../models/user.model")
 
 const bcrypt = require("bcrypt")
-const  jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken")
 const tokenBlackListToken = require("../models/blacklist.model")
 
-const registerController =async (req, res)=>{
-try{
-  const {email , username , password} = req.body
- if(!email || !username || !password) return res.status(400).json({message:"please provide"})
-  const isUser = await userModel.findOne({ $or:[{username} , {email}]})
-  if(isUser) return  res.status(400).json({ message:"email is already exists"})
- 
-    const hashPassword = await bcrypt.hash(password ,10)
-    
+const registerController = async (req, res) => {
+  try {
+    const { email, username, password } = req.body
+    if (!email || !username || !password) return res.status(400).json({ message: "please provide" })
+    const isUser = await userModel.findOne({ $or: [{ username }, { email }] })
+    if (isUser) return res.status(400).json({ message: "email is already exists" })
+
+    const hashPassword = await bcrypt.hash(password, 10)
+
     const user = await userModel.create({
-        username,
-        email,
-        password:hashPassword
+      username,
+      email,
+      password: hashPassword
     })
 
-    const token = jwt.sign({id:user._id, username:user.username} , process.env.JWT_SECRET)
+    const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET)
     console.log(token)
-  res.cookie("token", token, {
-  httpOnly: true,
-  secure: false,        // true only in HTTPS (production)
-  sameSite: "lax",      // or "none" if needed
+    res.cookie("token", token, {
+      httpOnly: true,
+       secure: true,          // ✅ REQUIRED on Render (HTTPS)
+  sameSite: "none"        // or "none" if needed
 
-});
-   res.status(201).json({message:"user registered successful" , user:{
-    id:user._id,
-    username:user.username,
-    email:user.email
-   }})
-}catch(e){
-res.status(400).json({message:`${e} error`})
+    });
+    res.status(201).json({
+      message: "user registered successful", user: {
+        id: user._id,
+        username: user.username,
+        email: user.email
+      }
+    })
+  } catch (e) {
+    res.status(400).json({ message: `${e} error` })
+  }
 }
-}
 
-const loginController = async(req,res)=>{
-try{
-    const {email, password} = req.body
+const loginController = async (req, res) => {
+  try {
+    const { email, password } = req.body
 
-    const user = await userModel.findOne({email})
-    if(!user){
-        return res.status(400).json({mesaage:"email is not register "})
+    const user = await userModel.findOne({ email })
+    if (!user) {
+      return res.status(400).json({ mesaage: "email is not register " })
     }
 
-    const isMathcPassword= await bcrypt.compare(password , user.password)
-    if(!isMathcPassword) return res.status(401).json({message:"password is not match"})
- 
-          const token = jwt.sign({id:user._id, username:user.username} , process.env.JWT_SECRET)
-          console.log(token)
-  res.cookie("token", token, {
-  httpOnly: true,
-  secure: false,        // true only in HTTPS (production)
-  sameSite: "lax",      // or "none" if needed
-});
-  res.status(200).json({message:"user login successfully",user:{
-    id:user._id,
-    username:user.username,
-    email:user.email
-  }})
-}catch(e){
-     res.status(400).json({message:`${e} error`})
-}
+    const isMathcPassword = await bcrypt.compare(password, user.password)
+    if (!isMathcPassword) return res.status(401).json({ message: "password is not match" })
+
+    const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET)
+    console.log(token)
+    res.cookie("token", token, {
+      httpOnly: true,
+     secure: true,          // ✅ REQUIRED on Render (HTTPS)
+  sameSite: "none"        // or "none" if needed
+    });
+    res.status(200).json({
+      message: "user login successfully", user: {
+        id: user._id,
+        username: user.username,
+        email: user.email
+      }
+    })
+  } catch (e) {
+    res.status(400).json({ message: `${e} error` })
+  }
 
 }
-const logoutController =async(req,res)=>{
-   const token = req.cookies.token
-   if(token){
-    await tokenBlackListToken.create({token})
-   }
-   res.clearCookie("token")
-   res.status(200).json({message:"User logged ourt successfully"})
+const logoutController = async (req, res) => {
+  const token = req.cookies.token
+  if (token) {
+    await tokenBlackListToken.create({ token })
+  }
+  res.clearCookie("token")
+  res.status(200).json({ message: "User logged ourt successfully" })
 }
 
 
-const getMeController= async(req,res)=>{
-   const user = await userModel.findById(req.user.id)
-   if(!user) return
-   res.status(200).json({ message: "User fetched successfully", user:{
-    id:user._id,
-    username:user.username,
-    email:user.email
-   }})
+const getMeController = async (req, res) => {
+  const user = await userModel.findById(req.user.id)
+  if (!user) return
+  res.status(200).json({
+    message: "User fetched successfully", user: {
+      id: user._id,
+      username: user.username,
+      email: user.email
+    }
+  })
 }
-module.exports={
-    loginController,
-    registerController,
-    logoutController,
-    getMeController
+module.exports = {
+  loginController,
+  registerController,
+  logoutController,
+  getMeController
 }

@@ -5,23 +5,30 @@ const { generateInterviewReport } = require("../services/ai.service");
 // ✅ Generate Report
 const generateInterViewReportController = async (req, res) => {
   try {
-    if (!req.file) {
-      return res.status(400).json({ message: "Resume file is required" });
+    const { selfDescription, jobDescription } = req.body;
+console.log(selfDescription,jobDescription)
+    let resumeText = "";
+
+    if (req.file) {
+      const pdf = await pdfParse(req.file.buffer);
+      resumeText = pdf.text;
+    }
+console.log(req.file)
+    if (!resumeText && !selfDescription) {
+      return res.status(400).json({
+        message: "Either resume or self description is required",
+      });
     }
 
-    const pdf = await pdfParse(req.file.buffer);
-
-    const { selfDescription, jobDescription } = req.body;
-
     const aiData = await generateInterviewReport({
-      resume: pdf.text,
+      resume: resumeText,
       selfDescription,
       jobDescription,
     });
-
+console.log(req.user.id)
     const interviewReport = await interviewReportModel.create({
       user: req.user.id,
-      resume: pdf.text, // store but don’t return later
+      resume: resumeText,
       selfDescription,
       jobDescription,
       title: aiData.title || "Interview",
@@ -31,7 +38,7 @@ const generateInterViewReportController = async (req, res) => {
       skillGap: aiData.skillGap,
       preparationPlan: aiData.preparationPlan,
     });
-
+console.log(interviewReport)
     res.status(201).json({
       message: "Interview report created",
       interviewReport,

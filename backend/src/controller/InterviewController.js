@@ -6,14 +6,14 @@ const { generateInterviewReport } = require("../services/ai.service");
 const generateInterViewReportController = async (req, res) => {
   try {
     const { selfDescription, jobDescription } = req.body;
-console.log(selfDescription,jobDescription)
+
     let resumeText = "";
 
     if (req.file) {
       const pdf = await pdfParse(req.file.buffer);
       resumeText = pdf.text;
     }
-console.log(req.file)
+
     if (!resumeText && !selfDescription) {
       return res.status(400).json({
         message: "Either resume or self description is required",
@@ -25,7 +25,7 @@ console.log(req.file)
       selfDescription,
       jobDescription,
     });
-console.log(req.user.id)
+
     const interviewReport = await interviewReportModel.create({
       user: req.user.id,
       resume: resumeText,

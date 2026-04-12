@@ -43,7 +43,7 @@ export default function Dashboard() {
         {/* List */}
         <div className="interview-grid">
           {reports.map((item) => (
-            <div
+            <div    
               key={item._id}
               className="interview-card"
               onClick={() => navigate(`/interview/${item._id}`)}

@@ -1,9 +1,5 @@
-import {
-  getAllInterviewReports,
-  generateInterviewReport,
-  getInterviewReportById,
-  generateResumePdf,
-} from "../services/interview";
+import { getAllInterviewReports, generateInterviewReport,
+   getInterviewReportById, generateResumePdf} from "../services/interview.js";
 
 import { useCallback, useContext } from "react";
 import { InterviewContext } from "../interview.context";

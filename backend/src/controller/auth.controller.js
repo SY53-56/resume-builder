@@ -20,7 +20,7 @@ const registerController = async (req, res) => {
     })
 
     const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET)
-    console.log(token)
+
     res.cookie("token", token, {
       httpOnly: true,
        secure: true,          // ✅ REQUIRED on Render (HTTPS)
@@ -52,7 +52,7 @@ const loginController = async (req, res) => {
     if (!isMathcPassword) return res.status(401).json({ message: "password is not match" })
 
     const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET)
-    console.log(token)
+   
     res.cookie("token", token, {
       httpOnly: true,
      secure: true,          // ✅ REQUIRED on Render (HTTPS)

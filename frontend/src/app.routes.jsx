@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { lazy, Suspense } from "react";
 
-import Layout from "./layout";
+import Layout from "./Layout";
 import Protected from "./features/auth/component/Protected";
 
 // ✅ Lazy imports
@@ -10,11 +10,10 @@ const Register = lazy(() => import("./features/auth/page/Register.jsx"));
 const Home = lazy(() => import("./features/interview/pages/Home.jsx"));
 const Interview = lazy(() => import("./features/interview/pages/Interview.jsx"));
 const Dashboard = lazy(() => import("./features/interview/pages/Dashboard.jsx"));
-
 // ✅ Suspense wrapper
 const withSuspense = (Component) => (
   <Suspense fallback={<div>Loading...</div>}>
- <Component/>
+<Component/>
   </Suspense>
 );
 

@@ -46,7 +46,7 @@ const scoreColor = useMemo(() => {
     if (loading || !report) {
         return (
             <main className='loading-screen'>
-                <h1>Loading your interview plan...</h1>
+                <h1 className='text-center'>Loading your interview plan...</h1>
             </main>
         )
     }
@@ -138,7 +138,7 @@ const scoreColor = useMemo(() => {
                                     <RoadMapDay key={day.day} day={day} />
                                 ))}
                             </div>
-                        </section>
+                     </section>
                     )}
                 </main>
 

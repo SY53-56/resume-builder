@@ -105,9 +105,31 @@ const getInterviewReportByUserId = async (req, res) => {
     });
   }
 };
+const deleteGenerateReport = async(req,res)=>{
+  try{
+    const {interviewId} = req.params
+   
+  
+    const reports = await interviewReportModel.findOneAndDelete({
+          _id: interviewId,
+      user: req.user.id,   // ✅ security check
+    });
+
+  
+     if(!reports){
+      return res.status(404).json({message:"reports not found"})
+     }
+ res.status(200).json({message:"successfully delete",})
+  }catch(e){
+    res.status(500).json({
+      message: "Server error",
+    });
+  }
+}
 
 module.exports = {
   generateInterViewReportController,
   getInterviewReportByIdController,
   getInterviewReportByUserId,
+  deleteGenerateReport
 };

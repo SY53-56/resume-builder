@@ -21,12 +21,12 @@ const registerController = async (req, res) => {
 
     const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET)
 
-    res.cookie("token", token, {
+     res.cookie("token", token, {
       httpOnly: true,
-       secure: true,          // ✅ REQUIRED on Render (HTTPS)
-  sameSite: "none"        // or "none" if needed
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
+    })
 
-    });
     res.status(201).json({
       message: "user registered successful", user: {
         id: user._id,
@@ -45,19 +45,19 @@ const loginController = async (req, res) => {
 
     const user = await userModel.findOne({ email })
     if (!user) {
-      return res.status(400).json({ mesaage: "email is not register " })
+      return res.status(400).json({ message: "email is not register " })
     }
 
     const isMathcPassword = await bcrypt.compare(password, user.password)
     if (!isMathcPassword) return res.status(401).json({ message: "password is not match" })
 
     const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET)
-   
     res.cookie("token", token, {
       httpOnly: true,
-     secure: true,          // ✅ REQUIRED on Render (HTTPS)
-  sameSite: "none"        // or "none" if needed
-    });
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
+    })
+
     res.status(200).json({
       message: "user login successfully", user: {
         id: user._id,

@@ -4,8 +4,11 @@ const app = express()
 const cors = require("cors")
 
 app.use(cors({
-    origin: process.env.FRONTEND_LINK ||"http://localhost:5173",
-    credentials:true
+  origin: [
+    "http://localhost:5173",
+    "https://resume-builder-kr7c.vercel.app"
+  ],
+  credentials: true
 }))
 app.use(cookie())
 app.use(express.json())

@@ -1,5 +1,5 @@
 import { getAllInterviewReports, generateInterviewReport,
-   getInterviewReportById, generateResumePdf} from "../services/interview.js";
+   getInterviewReportById, generateResumePdf , deleteGenerateReport} from "../services/interview.js";
 
 import { useCallback, useContext } from "react";
 import { InterviewContext } from "../interview.context";
@@ -15,6 +15,7 @@ export const useInterview = () => {
   } = useContext(InterviewContext);
 
   // ✅ Generate
+
   const generateReport = useCallback(async (data) => {
     setLoading(true);
     try {
@@ -78,6 +79,19 @@ export const useInterview = () => {
     }
   }, [setLoading]);
 
+  const deleteGenerateReportById = useCallback(async(id)=>{
+    setLoading(true)
+    try{
+      const res = await deleteGenerateReport(id)
+      setReport(prev=> prev.filter(item=> item._id !== id))
+      return res
+    }catch(error){
+         console.error("PDF Error:", error.response?.data || error.message);
+    }finally{
+        setLoading(false);
+    }
+  },[setLoading,setReport])
+
   return {
     loading,
     report,
@@ -86,5 +100,6 @@ export const useInterview = () => {
     getReportById,
     getReportsbyUserId,
     getResumePdf,
+    deleteGenerateReportById
   };
 };

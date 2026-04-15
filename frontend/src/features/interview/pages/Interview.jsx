@@ -31,7 +31,7 @@ const Interview = memo(() => {
     useEffect(() => {
         setQuestionsExpanded(false)
     }, [activeNav])
-    console.log("generatereport, report", report)
+    
 
 const scoreColor = useMemo(() => {
     if (!report) return '';

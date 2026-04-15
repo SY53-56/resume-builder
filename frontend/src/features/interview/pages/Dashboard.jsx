@@ -1,11 +1,12 @@
-import React, { useContext, useEffect } from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import "../style/dashboard.css";
 import { useInterview } from "../hooks/useInterview";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../../auth/auth.context";
+import { toast } from "react-toastify";
 
 export default function Dashboard() {
-  const { getReportsbyUserId, loading, reports = [] } = useInterview();
+  const { getReportsbyUserId, loading, reports = [],deleteGenerateReportById } = useInterview();
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -15,6 +16,15 @@ export default function Dashboard() {
     }
   }, [user?.id, getReportsbyUserId]);
 
+ const handleDeleteReports = useCallback(async (e,id) => {
+
+    e.stopPropagation(); 
+  const confirmDelete = window.confirm("Are you sure you want to delete?");
+  if (!confirmDelete) return;
+
+  await deleteGenerateReportById(id);
+  toast.success("delete successfully")
+}, [deleteGenerateReportById]);
   if (loading) {
     return (
       <section className="dash-section">
@@ -59,6 +69,7 @@ export default function Dashboard() {
 
               <div className="card-footer">
                 <span>View Report →</span>
+                <button onClick={(e)=>handleDeleteReports( e,item._id)} className="delete-btn">delete</button>
               </div>
             </div>
           ))}

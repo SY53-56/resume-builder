@@ -1,8 +1,8 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, } from 'react'
 import "../style/home.css"
 import { useInterview } from '../hooks/useInterview.js'
-import { useNavigate } from 'react-router'
-
+import {  useNavigate } from 'react-router'
+import { toast } from 'react-toastify'
 
 const Home = () => {
 
@@ -15,11 +15,25 @@ const Home = () => {
 
     const handleGenerateReport = async () => {
         const resumeFile = resumeInputRef.current.files[ 0 ]
-        console.log(resumeFile)
+          if (!jobDescription.trim()) {
+            return toast.error("Job description is required ❌")
+        }
+        const toastId = toast.loading("Generating interview strategy...")
         const data = await generateReport({ jobDescription, selfDescription, resumeFile })
-        console.log("sahul, ",data)
+         if (data?._id) {
+            toast.update(toastId, {
+                render: "Report generated successfully 🎉",
+                type: "success",
+                isLoading: false,
+                autoClose: 3000
+            })
+        }else{
+            throw new Error("Invalid response")
+        }
+       toast.success("GenerateReport Successfully")
         navigate(`/interview/${data?._id}`)
     }
+
 
     if (loading) {
         return (
@@ -116,12 +130,13 @@ const Home = () => {
                 {/* Card Footer */}
                 <div className='interview-card__footer'>
                     <span className='footer-info'>AI-Powered Strategy Generation &bull; Approx 30s</span>
-                    <button
-                        onClick={handleGenerateReport}
-                        className='generate-btn'>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" /></svg>
-                        Generate My Interview Strategy
-                    </button>
+                  <button
+    onClick={handleGenerateReport}
+    className='generate-btn'
+    disabled={loading}
+>
+    {loading ? "Generating..." : "Generate My Interview Strategy"}
+</button>
                 </div>
             </div>
 

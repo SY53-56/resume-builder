@@ -21,12 +21,11 @@ const registerController = async (req, res) => {
 
     const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET)
 
-     res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
-    })
-
+    res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,        // ✅ ALWAYS TRUE (Render uses HTTPS)
+  sameSite: "none"     // ✅ REQUIRED for cross-origin
+})
     res.status(201).json({
       message: "user registered successful", user: {
         id: user._id,
@@ -53,11 +52,10 @@ const loginController = async (req, res) => {
 
     const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET)
     res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
-    })
-
+  httpOnly: true,
+  secure: true,        
+  sameSite: "none"     
+})
     res.status(200).json({
       message: "user login successfully", user: {
         id: user._id,
@@ -75,7 +73,11 @@ const logoutController = async (req, res) => {
   if (token) {
     await tokenBlackListToken.create({ token })
   }
-  res.clearCookie("token")
+ res.clearCookie("token", {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none"
+})
   res.status(200).json({ message: "User logged ourt successfully" })
 }
 

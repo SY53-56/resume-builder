@@ -4,7 +4,7 @@ import { useInterview } from "../hooks/useInterview";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../../auth/auth.context";
 import { toast } from "react-toastify";
-
+import Footer from "../../component/Footer";
 export default function Dashboard() {
   const { getReportsbyUserId, loading, reports = [],deleteGenerateReportById } = useInterview();
   const { user } = useContext(AuthContext);
@@ -34,6 +34,7 @@ export default function Dashboard() {
   }
 
   return (
+    <>
     <section className="dash-section">
       <div className="dash-container">
 
@@ -77,5 +78,7 @@ export default function Dashboard() {
 
       </div>
     </section>
+    <Footer/>
+    </>
   );
 }

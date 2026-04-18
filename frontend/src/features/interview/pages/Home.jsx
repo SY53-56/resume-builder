@@ -3,6 +3,7 @@ import "../style/home.css"
 import { useInterview } from '../hooks/useInterview.js'
 import {  useNavigate } from 'react-router'
 import { toast } from 'react-toastify'
+import Footer from '../../component/Footer.jsx'
 
 const Home = () => {
 
@@ -44,6 +45,7 @@ const Home = () => {
     }
 
     return (
+        <>
         <div className='home-page'>
 
             {/* Page Header */}
@@ -143,12 +145,10 @@ const Home = () => {
           
 
             {/* Page Footer */}
-            <footer className='page-footer'>
-                <a href='#'>Privacy Policy</a>
-                <a href='#'>Terms of Service</a>
-                <a href='#'>Help Center</a>
-            </footer>
+         
         </div>
+         <Footer/>
+        </>
     )
 }
 

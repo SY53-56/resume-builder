@@ -322,6 +322,11 @@
     transform: scale(0.98);
 }
 
+.page-footer{
+    display: flex;
+ gap: 10px;
+}
+
 /* ── Responsive Layout ───────────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
     .home-page {

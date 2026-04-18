@@ -5,6 +5,7 @@ import { useParams } from 'react-router'
 
 import  QuestionCard  from '../../component/QuestionCard.jsx'
 import  RoadMapDay  from '../../component/RoadMapDay.jsx'
+import Footer from '../../component/Footer.jsx'
 
 
 const NAV_ITEMS = [
@@ -175,6 +176,7 @@ const scoreColor = useMemo(() => {
                 </aside>
             </div>
         </div>
+        <Footer/>
     </>
        
     )
